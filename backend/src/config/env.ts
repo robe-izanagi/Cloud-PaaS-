@@ -10,7 +10,7 @@ export function loadEnv() {
   const required = ["TIDB_HOST", "TIDB_USER", "TIDB_PASSWORD", "TIDB_DATABASE", "ADMIN_ACCESS_CODE", "JWT_SECRET"];
   const missing = required.filter((key) => !process.env[key]?.trim());
   if (missing.length) {
-    throw new Error(`Missing required environment variables: ${missing.join(", ")}. Configure the project root .env file.`);
+    throw new Error(`Missing required environment variables: ${missing.join(", ")}. Configure the service environment.`);
   }
   return {
     nodeEnv: process.env.NODE_ENV || "development",
