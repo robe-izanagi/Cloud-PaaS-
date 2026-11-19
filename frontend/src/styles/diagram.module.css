@@ -1,0 +1,18 @@
+.readOnlyDiagram { margin:28px 0; font-family:Inter,system-ui,sans-serif; }
+.flow { height:500px; width:100%; min-width:0; position:relative; overflow:hidden; border:1px solid #dfe5ed; border-radius:9px; background:#fafbfd; }
+.editableFlow { height:480px; border-radius:0 0 8px 8px; }
+.modeHint { min-height:32px; padding:7px 10px; color:#718096; font-size:11px; background:#f7f9fc; border-bottom:1px solid #e6ebf1; }
+.node { min-width:165px; max-width:225px; padding:12px 14px; border:1px solid #cbd7e5; border-radius:8px; background:#fff; color:#263750; box-shadow:0 3px 8px rgba(30,48,70,.08); text-align:center; font-family:Inter,system-ui,sans-serif; }
+.node strong { display:block; font-size:12px; line-height:1.35; }.node small { display:block; margin-top:4px; color:#77869a; font-size:10px; line-height:1.35; }
+.selectedNode { border-color:#3979ba; box-shadow:0 0 0 2px rgba(57,121,186,.14); }
+.diagramNodeView { display:block; width:100%; margin:22px 0; padding:0; border:1px solid #dfe5ed; border-radius:9px; background:#fff; overflow:hidden; font-family:Inter,system-ui,sans-serif; }
+.diagramNodeViewContainer { display:block; }
+.diagramEditorHeader { display:flex; align-items:center; justify-content:space-between; padding:11px 14px; border-bottom:1px solid #e8edf2; font-size:13px; }.diagramEditorHeader span { color:#347457; font-size:11px; background:#eaf6ef; padding:4px 7px; border-radius:4px; }
+.diagramToolbar { display:flex; flex-wrap:wrap; gap:5px; padding:8px 10px; background:#fafbfd; border-bottom:1px solid #e8edf2; }
+.diagramToolbar button,.fit { height:30px; border:1px solid #dce3eb; border-radius:5px; background:#fff; color:#526179; display:inline-flex; align-items:center; gap:5px; padding:0 8px; font-size:11px; }.diagramToolbar button:hover,.fit:hover { background:#f0f5fa; color:#315f91; }.diagramToolbar button:disabled { opacity:.45; cursor:not-allowed; }.diagramToolbar .activeControl { background:#e9f1fb; border-color:#9bb8d7; color:#285f98; }
+.fit { position:absolute; z-index:5; right:10px; bottom:10px; background:#fff; }
+.empty { position:absolute; inset:50% auto auto 50%; transform:translate(-50%,-50%); color:#8793a4; }
+.addedNode .node { background:#e4f5e8; border-color:#78bd88; }.removedNode .node { background:#ffe8e8; border-color:#db8e8e; opacity:.8; }.modifiedNode .node { background:#fff6dd; border-color:#dfbd61; }
+.addedEdge path { stroke:#32834a!important; stroke-width:2.6px; }.removedEdge path { stroke:#bd4545!important; stroke-dasharray:5 4; }
+.editForm { display:flex; flex-direction:column; gap:9px; padding-top:16px; }.editForm label { font-size:12px; font-weight:700; color:#526179; }.editForm input,.editForm textarea { width:100%; border:1px solid #d8dee8; border-radius:6px; padding:9px; font:inherit; }.editForm button { height:38px; border:0; border-radius:6px; background:#2f67ad; color:#fff; margin-top:5px; }
+@media(max-width:650px){.flow{height:420px}.editableFlow{height:430px}.diagramToolbar button{font-size:10px;padding:0 6px}.diagramEditorHeader{padding:9px 10px}.node{min-width:140px;max-width:180px;padding:9px}}
