@@ -39,8 +39,26 @@ npm run dev
 
 The backend exits with a clear configuration/database error if required values are missing or the pool cannot connect. The app does not silently disable certificate verification.
 
-## Render setup
+## Split Render deployment
 
-Add `TIDB_HOST`, `TIDB_PORT`, `TIDB_USER`, `TIDB_PASSWORD`, `TIDB_DATABASE`, `TIDB_ENABLE_SSL`, `TIDB_CA_PATH`, `ADMIN_ACCESS_CODE`, `JWT_SECRET`, `JWT_EXPIRES_IN`, `NODE_ENV=production`, and `CLIENT_ORIGIN` as service environment variables. Do not add `.env` to the Render dashboard as a file.
+For the backend Web Service, open **Environment** in the Render dashboard and add:
 
-Set `CLIENT_ORIGIN` to the exact Render HTTPS URL. Check TiDB public-network access and Render outbound-IP restrictions. If TiDB restricts IP ranges, configure the cluster allowlist or private network/plan capabilities rather than disabling TLS or certificate verification.
+- `TIDB_HOST`, `TIDB_PORT`, `TIDB_USER`, `TIDB_PASSWORD`, `TIDB_DATABASE`
+- `TIDB_ENABLE_SSL=true`
+- `ADMIN_ACCESS_CODE` (your private administrator code)
+- `JWT_SECRET` (a long random secret; do not reuse the admin code)
+- `NODE_ENV=production`
+- `CLIENT_ORIGIN` (the frontend's exact HTTPS origin, without a trailing slash, e.g. `https://your-site.onrender.com`)
+
+`TIDB_CA_PATH` is optional and can be omitted when the system's trusted certificates work. `JWT_EXPIRES_IN` is also optional and defaults to `30m`. Render supplies `PORT`; do not set it unless necessary. Do not add `.env` to the Render dashboard as a file.
+
+For the frontend Static Site, configure:
+
+- **Root Directory:** `frontend`
+- **Build Command:** `npm install && npm run build`
+- **Publish Directory:** `dist`
+- **Environment:** `VITE_API_URL` set to the backend Web Service's exact HTTPS origin, without a trailing slash (e.g. `https://your-api.onrender.com`)
+
+Vite embeds `VITE_API_URL` during the frontend build, so redeploy the Static Site after changing it. The backend allows credentialed requests only from `CLIENT_ORIGIN`. Its production admin cookie uses `Secure` and `SameSite=None` so the split frontend can send the login session. Some browsers may restrict cross-site cookies; using frontend and backend custom domains under the same site can avoid that restriction.
+
+After setting these values, manually redeploy the backend and frontend. If the backend starts but cannot connect to TiDB, check TiDB public-network access and Render outbound-IP restrictions. If TiDB restricts IP ranges, configure the cluster allowlist or private network/plan capabilities rather than disabling TLS or certificate verification.
