@@ -103,12 +103,9 @@ The Express server serves `frontend/dist` and provides frontend route fallback.
 
 ## Render deployment
 
-1. Create a Node web service from this repository.
-2. Build command: `npm install && npm run build`
-3. Start command: `npm start`
-4. Add all required environment variables in the Render Dashboard; never put secrets in `render.yaml`.
-5. Set `NODE_ENV=production`, `CLIENT_ORIGIN` to the exact Render URL, and Render's `PORT` is supplied automatically.
-6. Confirm TiDB network access allows the deployment.
+For separate frontend and backend services, follow the **Split Render deployment** steps in [ENV_SETUP.md](ENV_SETUP.md). The frontend must have `VITE_API_URL` set to the backend URL at build time, and the backend must have `CLIENT_ORIGIN` set to the frontend URL.
+
+If deploying as one Node Web Service instead, use build command `npm install && npm run build` and start command `npm start`. Add backend environment variables in the Render Dashboard; never put secrets in `render.yaml`. Set `NODE_ENV=production`, `CLIENT_ORIGIN` to the deployed frontend origin, and allow the service to use Render's supplied `PORT`.
 
 ## Security
 
