@@ -87,7 +87,7 @@ export function createApp() {
     res.cookie("admin_session", token, {
       httpOnly: true,
       secure: env.nodeEnv === "production",
-      sameSite: env.nodeEnv === "production" ? "strict" : "lax",
+      sameSite: env.nodeEnv === "production" ? "none" : "lax",
       maxAge: 30 * 60 * 1000,
       path: "/"
     });
@@ -96,7 +96,7 @@ export function createApp() {
 
   app.get("/api/admin/session", requireAdmin, (_req, res) => res.json({ authenticated: true }));
   app.post("/api/admin/logout", requireAdmin, (_req, res) => {
-    res.clearCookie("admin_session", { httpOnly: true, secure: env.nodeEnv === "production", sameSite: env.nodeEnv === "production" ? "strict" : "lax", path: "/" });
+    res.clearCookie("admin_session", { httpOnly: true, secure: env.nodeEnv === "production", sameSite: env.nodeEnv === "production" ? "none" : "lax", path: "/" });
     res.json({ authenticated: false });
   });
 
