@@ -1,7 +1,9 @@
 import type { Revision, TipTapDocument } from "../types/article";
 
+const API_BASE_URL = import.meta.env.VITE_API_URL?.replace(/\/+$/, "") || "";
+
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
-  const response = await fetch(path, { credentials: "include", ...options, headers: { "Content-Type": "application/json", ...options?.headers } });
+  const response = await fetch(`${API_BASE_URL}${path}`, { credentials: "include", ...options, headers: { "Content-Type": "application/json", ...options?.headers } });
   const data = await response.json().catch(() => ({}));
   if (!response.ok) {
     const error = new Error(data.error || "Request failed") as Error & { status: number };
